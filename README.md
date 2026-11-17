@@ -24,4 +24,3 @@ npm run preview
 ```
 
 The React shell, navigation, page cover, scroll progress, and interactive software tour are components and effects in `src/App.jsx`. Page-specific marketing content is kept in `src/content` and rendered as React elements. Shared styling remains in `styles.css`; images and the favicon are in `public/assets`.
-

@@ -1,0 +1,21 @@
+Website photos saved locally from Unsplash for the Infocom product landing page.
+
+Unsplash license: https://unsplash.com/license
+
+hero-business-workspace.jpg
+https://images.unsplash.com/photo-1498050108023-c5249f4df085
+
+commerce-store.jpg
+https://images.unsplash.com/photo-1441986300917-64674bd600d8
+
+warehouse-inventory.jpg
+https://images.unsplash.com/photo-1553413077-190dd305871c
+
+team-collaboration.jpg
+https://images.unsplash.com/photo-1521737711867-e3b97375f902
+
+business-planning.jpg
+https://images.unsplash.com/photo-1556761175-b413da4baf72
+
+medical-stock.jpg
+https://images.unsplash.com/photo-1642055514517-7b52288890ec

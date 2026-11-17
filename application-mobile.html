@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fffaf7">
+  <meta name="description" content="Découvrez l’application mobile Infocom et son expérience de gestion pensée pour le téléphone.">
+  <title>Application mobile Infocom — La gestion en déplacement</title>
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <script>
+(() => {
+  const navigation = performance.getEntriesByType("navigation")[0];
+  let previousPath = "";
+  try {
+    previousPath = sessionStorage.getItem("infocom-internal-navigation") || "";
+    sessionStorage.removeItem("infocom-internal-navigation");
+  } catch {}
+  const internalNavigation = previousPath === location.pathname;
+  const isRefresh = navigation?.type === "reload";
+  const isHistoryNavigation = navigation?.type === "back_forward";
+  if (isRefresh || (!isHistoryNavigation && !internalNavigation)) {
+    document.documentElement.classList.add("intro-pending");
+  }
+})();
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="root" data-page="mobile"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

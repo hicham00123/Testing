@@ -6,6 +6,17 @@
   <meta name="theme-color" content="#fffaf7">
   <meta name="description" content="Découvrez l’application mobile Infocom et son expérience de gestion pensée pour le téléphone.">
   <title>Application mobile Infocom — La gestion en déplacement</title>
+  <script>
+    try {
+      const savedLanguage = localStorage.getItem("infocom-language");
+      const savedTheme = localStorage.getItem("infocom-theme");
+      if (["fr", "en", "ar"].includes(savedLanguage)) {
+        document.documentElement.lang = savedLanguage;
+        document.documentElement.dir = savedLanguage === "ar" ? "rtl" : "ltr";
+      }
+      if (["light", "dark"].includes(savedTheme)) document.documentElement.dataset.theme = savedTheme;
+    } catch {}
+  </script>
   <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
   <script>
 (() => {

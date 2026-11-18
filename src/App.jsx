@@ -8,6 +8,7 @@ import contactMarkup from "./content/contact.html?raw";
 import ModulePage from "./ModulePage.jsx";
 import { MODULE_PAGES } from "./modulePages.js";
 import { htmlToReact } from "./lib/htmlToReact.js";
+import { localizeSubtree, LOCALE_UI, translateText } from "./i18n.js";
 
 const PAGE_CONTENT = {
   home: homeMarkup,
@@ -32,7 +33,7 @@ function PageCover() {
   );
 }
 
-function SiteHeader({ page }) {
+function SiteHeader({ page, language, setLanguage, theme, toggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigationRef = useRef(null);
   const menuButtonRef = useRef(null);
@@ -77,6 +78,10 @@ function SiteHeader({ page }) {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    localizeSubtree(document.querySelector(".site-header"), language);
+  }, [language, menuOpen]);
+
   function closeMenu() {
     setMenuOpen(false);
     navigationRef.current?.querySelectorAll(".nav-dropdown[open]").forEach((dropdown) => {
@@ -103,7 +108,7 @@ function SiteHeader({ page }) {
           ref={navigationRef}
           className={`main-nav${menuOpen ? " is-open" : ""}`}
           id="site-nav"
-          aria-label="Navigation principale"
+          aria-label={LOCALE_UI[language].nav}
         >
           <details className={`nav-dropdown${isSoftwarePage ? " is-current" : ""}`}>
             <summary>Le logiciel <span aria-hidden="true" /></summary>
@@ -133,6 +138,16 @@ function SiteHeader({ page }) {
           </details>
           <a href="offres.html" aria-current={page === "offres" ? "page" : undefined} onClick={closeMenu}>Offres</a>
           <a href="faq.html" aria-current={page === "faq" ? "page" : undefined} onClick={closeMenu}>Questions</a>
+          <div className="site-preferences">
+            <label className="sr-only" htmlFor="site-language">{LOCALE_UI[language].language}</label>
+            <select id="site-language" className="language-switcher" value={language} aria-label={LOCALE_UI[language].language} onChange={(event) => setLanguage(event.target.value)}>
+              <option value="fr" lang="fr">🇫🇷 Français</option><option value="en" lang="en">🇬🇧 English</option><option value="ar" lang="ar">🇸🇦 العربية</option>
+            </select>
+            <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === "dark" ? LOCALE_UI[language].enableLight : LOCALE_UI[language].enableDark} title={theme === "dark" ? LOCALE_UI[language].enableLight : LOCALE_UI[language].enableDark}>
+              {theme === "dark" ? <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg> : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 15.4A8.5 8.5 0 0 1 8.6 3.9 8.7 8.7 0 1 0 20.1 15.4Z" /></svg>}
+              <span>{theme === "dark" ? LOCALE_UI[language].lightMode : LOCALE_UI[language].darkMode}</span>
+            </button>
+          </div>
         </nav>
         <a className="button button-start nav-cta" href="offres.html#plans-title">Voir les tarifs <span aria-hidden="true">↗</span></a>
       </div>
@@ -140,14 +155,14 @@ function SiteHeader({ page }) {
   );
 }
 
-function SiteFooter() {
+function SiteFooter({ language }) {
   const year = new Date().getFullYear();
   return (
     <footer className="site-footer">
       <div className="shell footer-main">
         <a className="wordmark footer-wordmark" href="index.html#top" aria-label="INFOCOM, accueil"><img src="/assets/images/infocom-logo.svg" alt="" /></a>
         <p>Une gestion plus claire<br />pour votre activité.</p>
-        <nav aria-label="Liens de pied de page">
+        <nav aria-label={LOCALE_UI[language].footer}>
           <a href="logiciel.html">Le logiciel</a>
           <a href="secteurs.html">Solutions</a>
           <a href="offres.html">Offres GO · PRO · MAX</a>
@@ -269,7 +284,32 @@ function usePageInteractions() {
   }, []);
 }
 
+function getPreference(key, fallback, allowed) {
+  try {
+    const value = window.localStorage.getItem(key);
+    return allowed.includes(value) ? value : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export default function App({ page }) {
+  const pageTitle = useRef(document.title);
+  const [language, setLanguage] = useState(() => getPreference("infocom-language", "fr", ["fr", "en", "ar"]));
+  const [theme, setTheme] = useState(() => getPreference("infocom-theme", "light", ["light", "dark"]));
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.lang = language;
+    root.dir = language === "ar" ? "rtl" : "ltr";
+    root.dataset.theme = theme;
+    document.title = translateText(pageTitle.current, language);
+    try {
+      window.localStorage.setItem("infocom-language", language);
+      window.localStorage.setItem("infocom-theme", theme);
+    } catch {}
+    localizeSubtree(document.getElementById("root"), language);
+  }, [language, theme, page]);
   usePageInteractions();
   const module = MODULE_PAGES[page];
   const markup = PAGE_CONTENT[page] || PAGE_CONTENT.home;
@@ -278,9 +318,9 @@ export default function App({ page }) {
     <>
       <PageCover />
       <div className="scroll-progress" aria-hidden="true"><i /></div>
-      <SiteHeader page={page} />
+      <SiteHeader page={page} language={language} setLanguage={setLanguage} theme={theme} toggleTheme={() => setTheme((current) => current === "dark" ? "light" : "dark")} />
       <main>{module ? <ModulePage module={module} /> : htmlToReact(markup)}</main>
-      <SiteFooter />
+      <SiteFooter language={language} />
     </>
   );
 }

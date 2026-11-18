@@ -33,7 +33,7 @@ function PageCover() {
   );
 }
 
-function SiteHeader({ page, language, setLanguage, theme, toggleTheme }) {
+function SiteHeader({ page, language, setLanguage }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigationRef = useRef(null);
   const menuButtonRef = useRef(null);
@@ -143,10 +143,6 @@ function SiteHeader({ page, language, setLanguage, theme, toggleTheme }) {
             <select id="site-language" className="language-switcher" value={language} aria-label={LOCALE_UI[language].language} onChange={(event) => setLanguage(event.target.value)}>
               <option value="fr" lang="fr">🇫🇷 Français</option><option value="en" lang="en">🇬🇧 English</option><option value="ar" lang="ar">🇸🇦 العربية</option>
             </select>
-            <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === "dark" ? LOCALE_UI[language].enableLight : LOCALE_UI[language].enableDark} title={theme === "dark" ? LOCALE_UI[language].enableLight : LOCALE_UI[language].enableDark}>
-              {theme === "dark" ? <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg> : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 15.4A8.5 8.5 0 0 1 8.6 3.9 8.7 8.7 0 1 0 20.1 15.4Z" /></svg>}
-              <span>{theme === "dark" ? LOCALE_UI[language].lightMode : LOCALE_UI[language].darkMode}</span>
-            </button>
           </div>
         </nav>
         <a className="button button-start nav-cta" href="offres.html#plans-title">Voir les tarifs <span aria-hidden="true">↗</span></a>
@@ -296,20 +292,17 @@ function getPreference(key, fallback, allowed) {
 export default function App({ page }) {
   const pageTitle = useRef(document.title);
   const [language, setLanguage] = useState(() => getPreference("infocom-language", "fr", ["fr", "en", "ar"]));
-  const [theme, setTheme] = useState(() => getPreference("infocom-theme", "light", ["light", "dark"]));
 
   useEffect(() => {
     const root = document.documentElement;
     root.lang = language;
     root.dir = language === "ar" ? "rtl" : "ltr";
-    root.dataset.theme = theme;
     document.title = translateText(pageTitle.current, language);
     try {
       window.localStorage.setItem("infocom-language", language);
-      window.localStorage.setItem("infocom-theme", theme);
     } catch {}
     localizeSubtree(document.getElementById("root"), language);
-  }, [language, theme, page]);
+  }, [language, page]);
   usePageInteractions();
   const module = MODULE_PAGES[page];
   const markup = PAGE_CONTENT[page] || PAGE_CONTENT.home;
@@ -318,7 +311,7 @@ export default function App({ page }) {
     <>
       <PageCover />
       <div className="scroll-progress" aria-hidden="true"><i /></div>
-      <SiteHeader page={page} language={language} setLanguage={setLanguage} theme={theme} toggleTheme={() => setTheme((current) => current === "dark" ? "light" : "dark")} />
+      <SiteHeader page={page} language={language} setLanguage={setLanguage} />
       <main>{module ? <ModulePage module={module} /> : htmlToReact(markup)}</main>
       <SiteFooter language={language} />
     </>

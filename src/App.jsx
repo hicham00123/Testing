@@ -25,7 +25,7 @@ function PageCover() {
       <div className="cover-orbit cover-orbit-one" />
       <div className="cover-orbit cover-orbit-two" />
       <div className="cover-content">
-        <img className="cover-brand-logo" src="/assets/images/infocom-logo.svg" alt="INFOCOM" />
+        <img className="cover-brand-logo" src="/assets/images/infocom-logo.svg" alt="INFOCOM.MA" />
         <p>GESTION · PRODUITS · STOCK</p>
         <div className="cover-progress"><i /></div>
       </div>
@@ -92,7 +92,7 @@ function SiteHeader({ page, language, setLanguage, theme, toggleTheme }) {
   return (
     <header className="site-header" id="top">
       <div className="shell nav-wrap">
-        <a className="wordmark" href="index.html#top" aria-label="INFOCOM, accueil"><img src="/assets/images/infocom-logo.svg" alt="" /></a>
+        <a className="wordmark" href="index.html#top" aria-label="INFOCOM.MA, accueil"><img src="/assets/images/infocom-logo.svg" alt="" /></a>
         <button
           ref={menuButtonRef}
           className="menu-toggle"
@@ -160,7 +160,7 @@ function SiteFooter({ language }) {
   return (
     <footer className="site-footer">
       <div className="shell footer-main">
-        <a className="wordmark footer-wordmark" href="index.html#top" aria-label="INFOCOM, accueil"><img src="/assets/images/infocom-logo.svg" alt="" /></a>
+        <a className="wordmark footer-wordmark" href="index.html#top" aria-label="INFOCOM.MA, accueil"><img src="/assets/images/infocom-logo.svg" alt="" /></a>
         <p>Une gestion plus claire<br />pour votre activité.</p>
         <nav aria-label={LOCALE_UI[language].footer}>
           <a href="logiciel.html">Le logiciel</a>

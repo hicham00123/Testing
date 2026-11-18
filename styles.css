@@ -738,6 +738,23 @@ a.button:active,button.button:active { transform: translateY(0) scale(.985); }
 .nav-menu > a[aria-current="page"] { background:#fff3ed; }
 .main-nav .nav-mega a::after,.main-nav .nav-menu a::after { display:none; }
 .main-nav .nav-mega a,.main-nav .nav-menu a { color:inherit; }
+@media (min-width:981px) {
+  .nav-mega { width:min(680px,calc(100vw - 40px)); grid-template-columns:.9fr 1.1fr; gap:13px; padding:15px; }
+  .nav-menu { width:min(370px,calc(100vw - 40px)); padding:20px; }
+  .nav-mega-intro { padding:31px 24px; }
+  .nav-mega-intro > small,.nav-menu-heading > small { font-size:9px; }
+  .nav-mega-intro > strong { font-size:22px; }
+  .nav-mega-intro > p { font-size:10px; }
+  .nav-mega-intro > a,.nav-menu-all { font-size:10px; }
+  .nav-mega-links { gap:7px; padding:9px; }
+  .nav-mega-links > a,.nav-menu > a:not(.nav-menu-all) { grid-template-columns:38px 1fr; gap:13px; padding:14px 12px; }
+  .nav-mega-links > a > i,.nav-menu > a > i { width:34px; height:34px; font-size:9px; }
+  .nav-mega-links b,.nav-menu > a b { font-size:12px; }
+  .nav-mega-links small,.nav-menu > a small { font-size:9px; }
+  .nav-menu-heading { gap:7px; padding:5px 8px 15px; }
+  .nav-menu-heading > b { font-size:14px; }
+  .nav-menu-all { margin-top:12px; padding:14px 7px 5px; }
+}
 .nav-cta { min-height:46px; gap:10px; margin-left:4px; padding-inline:18px; border-radius:8px; font-size:10px; white-space:nowrap; }
 .nav-cta span { transition:transform .2s ease; }
 .nav-cta:hover span { transform:translate(2px,-2px); }

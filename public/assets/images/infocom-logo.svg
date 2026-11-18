@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 76" role="img" aria-labelledby="title">
+  <title id="title">INFOCOM.MA</title>
+  <g fill="none" stroke="#f45116" stroke-width="3.6" stroke-linecap="round">
+    <circle cx="38" cy="38" r="31"/>
+    <ellipse cx="38" cy="38" rx="14" ry="31"/>
+    <ellipse cx="38" cy="38" rx="25" ry="31"/>
+    <path d="M8 38h60M12 23h52M12 53h52M19 12c8 7 13 16 13 26s-5 19-13 26M57 12c-8 7-13 16-13 26s5 19 13 26"/>
+  </g>
+  <text x="82" y="47" fill="#f45116" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" letter-spacing="-.7">INFOCOM.MA</text>
+</svg>

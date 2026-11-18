@@ -24,8 +24,7 @@ function PageCover() {
       <div className="cover-orbit cover-orbit-one" />
       <div className="cover-orbit cover-orbit-two" />
       <div className="cover-content">
-        <span className="cover-mark">I</span>
-        <div className="cover-wordmark">INFOCOM<span>.</span></div>
+        <img className="cover-brand-logo" src="/assets/images/infocom-logo.svg" alt="INFOCOM.MA" />
         <p>GESTION · PRODUITS · STOCK</p>
         <div className="cover-progress"><i /></div>
       </div>
@@ -88,7 +87,7 @@ function SiteHeader({ page }) {
   return (
     <header className="site-header" id="top">
       <div className="shell nav-wrap">
-        <a className="wordmark" href="index.html#top" aria-label="Infocom, accueil">INFOCOM</a>
+        <a className="wordmark" href="index.html#top" aria-label="INFOCOM.MA, accueil"><img src="/assets/images/infocom-logo.svg" alt="" /></a>
         <button
           ref={menuButtonRef}
           className="menu-toggle"
@@ -146,7 +145,7 @@ function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="shell footer-main">
-        <a className="wordmark footer-wordmark" href="index.html#top">INFOCOM</a>
+        <a className="wordmark footer-wordmark" href="index.html#top" aria-label="INFOCOM.MA, accueil"><img src="/assets/images/infocom-logo.svg" alt="" /></a>
         <p>Une gestion plus claire<br />pour votre activité.</p>
         <nav aria-label="Liens de pied de page">
           <a href="logiciel.html">Le logiciel</a>

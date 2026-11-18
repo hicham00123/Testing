@@ -89,6 +89,29 @@ function SiteHeader({ page, language, setLanguage }) {
     });
   }
 
+  function handleDropdownPointerEnter(event) {
+    if (event.pointerType !== "mouse" || !window.matchMedia("(min-width: 981px) and (hover: hover) and (pointer: fine)").matches) return;
+    const dropdown = event.currentTarget;
+    navigationRef.current?.querySelectorAll(".nav-dropdown[open]").forEach((other) => {
+      if (other !== dropdown) {
+        other.removeAttribute("data-hover-opened");
+        other.removeAttribute("open");
+      }
+    });
+    dropdown.setAttribute("data-hover-opened", "true");
+    dropdown.setAttribute("open", "");
+  }
+
+  function handleDropdownPointerLeave(event) {
+    if (event.pointerType !== "mouse" || !window.matchMedia("(min-width: 981px) and (hover: hover) and (pointer: fine)").matches) return;
+    event.currentTarget.removeAttribute("data-hover-opened");
+    event.currentTarget.removeAttribute("open");
+  }
+
+  function handleDropdownSummaryClick(event) {
+    const dropdown = event.currentTarget.closest(".nav-dropdown");
+    if (event.detail > 0 && dropdown?.dataset.hoverOpened === "true") event.preventDefault();
+  }
   return (
     <header className="site-header" id="top">
       <div className="shell nav-wrap">
@@ -110,8 +133,8 @@ function SiteHeader({ page, language, setLanguage }) {
           id="site-nav"
           aria-label={LOCALE_UI[language].nav}
         >
-          <details className={`nav-dropdown${isSoftwarePage ? " is-current" : ""}`}>
-            <summary>Le logiciel <span aria-hidden="true" /></summary>
+          <details className={`nav-dropdown${isSoftwarePage ? " is-current" : ""}`} onPointerEnter={handleDropdownPointerEnter} onPointerLeave={handleDropdownPointerLeave}>
+            <summary onClick={handleDropdownSummaryClick}>Le logiciel <span aria-hidden="true" /></summary>
             <div className="nav-mega">
               <div className="nav-mega-intro">
                 <small>LA SUITE INFOCOM</small>
@@ -126,8 +149,8 @@ function SiteHeader({ page, language, setLanguage }) {
               </div>
             </div>
           </details>
-          <details className={`nav-dropdown${isSolutionsPage ? " is-current" : ""}`}>
-            <summary>Solutions <span aria-hidden="true" /></summary>
+          <details className={`nav-dropdown${isSolutionsPage ? " is-current" : ""}`} onPointerEnter={handleDropdownPointerEnter} onPointerLeave={handleDropdownPointerLeave}>
+            <summary onClick={handleDropdownSummaryClick}>Solutions <span aria-hidden="true" /></summary>
             <div className="nav-menu">
               <div className="nav-menu-heading"><small>PAR ACTIVITÉ</small><b>Des exemples selon votre organisation</b></div>
               <a href="secteurs.html#solutions-commerce" onClick={closeMenu}><i>↗</i><span><b>Commerce & distribution</b><small>Ventes, articles et suivi</small></span></a>

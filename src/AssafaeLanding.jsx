@@ -15,7 +15,6 @@ const CONTENT = {
       floatOne: "Suivi du stock", floatOneSub: "Articles & dépôts", floatTwo: "Flux commercial", floatTwoSub: "Achats · ventes · caisse"
     },
     trust: { eyebrow: "POUR LES ENTREPRISES QUI GÈRENT DES PRODUITS", title: "Un outil conçu pour vos opérations du quotidien.", sectors: ["Commerce de détail", "Grossistes", "Distribution", "Pharmacies", "Pièces auto", "Prestataires"] },
-    walkthrough: { eyebrow: "LE PRODUIT EN ACTION", title: "Découvrez les opérations dans le logiciel.", body: "Passez d’un espace à l’autre pour voir comment les ventes, le stock, les achats et les livraisons se suivent dans INFOCOM.MA.", tabsLabel: "Parcourir les espaces du logiciel", preview: "APERÇU DU LOGICIEL", steps: "Le parcours", quote: "Demander un devis", note: "Maquette de présentation avec données fictives. Les écrans et chiffres servent à illustrer les fonctionnalités." },
     value: {
       eyebrow: "UNE GESTION PLUS FLUIDE", title: "Simple, rapide et performant",
       body: "Reliez les opérations qui font avancer votre activité, dans un espace pensé pour le travail de tous les jours.",
@@ -102,7 +101,6 @@ const CONTENT = {
       floatOne: "Inventory tracking", floatOneSub: "Products & warehouses", floatTwo: "Business workflows", floatTwoSub: "Purchasing · sales · checkout"
     },
     trust: { eyebrow: "FOR BUSINESSES THAT MANAGE PRODUCTS", title: "Built around your day-to-day operations.", sectors: ["Retail", "Wholesalers", "Distribution", "Pharmacies", "Auto parts", "Services"] },
-    walkthrough: { eyebrow: "THE PRODUCT IN ACTION", title: "Explore your workflows inside the software.", body: "Switch between workspaces to see how INFOCOM.MA follows sales, inventory, purchasing, and deliveries.", tabsLabel: "Browse software workspaces", preview: "SOFTWARE PREVIEW", steps: "The workflow", quote: "Request a quote", note: "Presentation mockup with fictional data. Screens and figures illustrate the software features." },
     value: {
       eyebrow: "A CLEARER WAY TO MANAGE", title: "Simple, fast, and effective",
       body: "Connect the operations that keep your business moving in one workspace designed for everyday work.",
@@ -188,7 +186,6 @@ const CONTENT = {
       floatOne: "متابعة المخزون", floatOneSub: "المنتجات والمستودعات", floatTwo: "سير العمليات", floatTwoSub: "المشتريات · المبيعات · نقطة البيع"
     },
     trust: { eyebrow: "للشركات التي تدير المنتجات", title: "أداة مصممة لعملياتك اليومية.", sectors: ["التجارة بالتجزئة", "تجار الجملة", "التوزيع", "الصيدليات", "قطع السيارات", "الخدمات"] },
-    walkthrough: { eyebrow: "البرنامج أثناء العمل", title: "اكتشف سير العمليات داخل البرنامج.", body: "تنقل بين مساحات العمل لمشاهدة كيفية متابعة INFOCOM.MA للمبيعات والمخزون والمشتريات والتسليمات.", tabsLabel: "استكشف مساحات البرنامج", preview: "معاينة البرنامج", steps: "مراحل العملية", quote: "اطلب عرض سعر", note: "نموذج للعرض ببيانات افتراضية. توضح الشاشات والأرقام وظائف البرنامج." },
     value: {
       eyebrow: "إدارة أكثر وضوحًا", title: "بسيطة وسريعة وفعالة",
       body: "اربط العمليات التي تحرك نشاطك في مساحة واحدة مصممة للعمل اليومي.",
@@ -503,36 +500,6 @@ function FeatureDashboard({ feature, language }) {
   </div>;
 }
 
-function ProductWalkthrough({ language, modules, copy }) {
-  const [activeId, setActiveId] = useState("ventes");
-  const active = modules.find((module) => module.id === activeId) || modules[0];
-  const dashboardFeature = { ventes: "sales", stock: "stock", achats: "purchases", livraisons: "deliveries" }[active.id] || "sales";
-  return <section className="aa-product-walkthrough" aria-labelledby="aa-walkthrough-title" dir={language === "ar" ? "rtl" : "ltr"}>
-    <div className="aa-container">
-      <SectionHeading eyebrow={copy.eyebrow} title={copy.title} body={copy.body} centered id="aa-walkthrough-title" />
-      <div className="aa-walk-tabs" role="tablist" aria-label={copy.tabsLabel}>
-        {modules.map((module, index) => <button id={`walkthrough-tab-${module.id}`} type="button" role="tab" aria-controls="walkthrough-panel" aria-selected={activeId === module.id} className={activeId === module.id ? "is-active" : ""} onClick={() => setActiveId(module.id)} key={module.id}>
-          <span>{String(index + 1).padStart(2, "0")}</span><b>{module.title}</b><i aria-hidden="true">↗</i>
-        </button>)}
-      </div>
-      <div className="aa-walkthrough-panel" id="walkthrough-panel" role="tabpanel" aria-labelledby={`walkthrough-tab-${active.id}`} key={active.id}>
-        <div className="aa-walkthrough-copy">
-          <span className="aa-walkthrough-kicker"><i />{copy.steps}</span>
-          <h3>{active.title}</h3>
-          <p>{active.lead}</p>
-          <ol>{active.steps.slice(0, 3).map((step, index) => <li key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><div><b>{step.title}</b><small>{step.body}</small></div></li>)}</ol>
-          <a className="aa-button aa-button-primary" href="offres.html#pricing">{copy.quote}<Icon name="arrow" size={16} /></a>
-        </div>
-        <figure className="aa-walkthrough-screen">
-          <div className="aa-walkthrough-browser"><span><i /><i /><i /></span><b>INFOCOM.MA</b><small>{copy.preview}</small></div>
-          <FeatureDashboard feature={dashboardFeature} language={language} />
-        </figure>
-      </div>
-      <p className="aa-walkthrough-note">{copy.note}</p>
-    </div>
-  </section>;
-}
-
 function FeaturedModuleDetails({ modules, language, copy }) {
   return <section className="aa-feature-details" id="feature-details" aria-labelledby="aa-feature-details-title">
     <div className="aa-container">
@@ -665,7 +632,6 @@ function AssafaeLanding({ language }) {
   const closing = CLOSING[language] || CLOSING.fr;
   const inlineFeatureCopy = INLINE_FEATURE_COPY[language] || INLINE_FEATURE_COPY.fr;
   const ecosystemCopy = ECOSYSTEM_COPY[language] || ECOSYSTEM_COPY.fr;
-  const walkthroughCopy = copy.walkthrough;
   const responsiveCopy = RESPONSIVE_COPY[language] || RESPONSIVE_COPY.fr;
   const moduleList = MODULES[language] || MODULES.fr;
   const featuredModules = moduleList.filter((module) => ["ventes", "stock", "achats", "livraisons"].includes(module.id));
@@ -700,8 +666,6 @@ function AssafaeLanding({ language }) {
           <div className="aa-sector-chips">{copy.trust.sectors.map((sector, index) => <span className={"aa-sector-chip aa-chip-" + index} key={sector}><i>{String(index + 1).padStart(2, "0")}</i>{sector}</span>)}</div>
         </div>
       </section>
-
-      <ProductWalkthrough language={language} modules={featuredModules} copy={walkthroughCopy} />
 
       <section className="aa-section aa-value" aria-labelledby="aa-value-title">
         <div className="aa-container">

@@ -429,7 +429,21 @@ function SectionHeading({ eyebrow, title, body, centered = false, id }) {
 function FeatureDashboard({ feature, language }) {
   const localized = FEATURE_DASHBOARD_COPY[language] || FEATURE_DASHBOARD_COPY.fr;
   const content = localized[feature];
-  const bars = feature === "deliveries" ? [45, 65, 51, 83, 73, 58, 69] : [39, 56, 46, 73, 60, 88, 70];
+  const bars = [39, 56, 46, 73, 60, 88, 70];
+  const deliveryStages = feature === "deliveries" ? [
+    { label: content.metrics[2][0], value: content.metrics[2][1], detail: content.metrics[2][2], state: "pending" },
+    { label: content.metrics[0][0], value: content.metrics[0][1], detail: content.metrics[0][2], state: "active" },
+    { label: content.metrics[1][0], value: content.metrics[1][1], detail: content.metrics[1][2], state: "done" }
+  ] : [];
+  const activityTable = <section className={`aa-fd-panel aa-fd-table-panel aa-fd-table-panel-${feature}`}>
+    <div className="aa-fd-panel-heading"><b>{content.table}</b><span>•••</span></div>
+    <div className="aa-fd-table" role="table" aria-label={content.table}>
+      <div className="aa-fd-row aa-fd-table-head" role="row">{content.columns.map((column) => <span role="columnheader" key={column}>{column}</span>)}</div>
+      {content.rows.map((row, rowIndex) => <div className="aa-fd-row" role="row" key={row[0]}>
+        {row.map((cell, cellIndex) => <span role="cell" className={cellIndex === row.length - 1 ? (feature === "stock" ? "is-low-stock" : "is-status") : ""} key={`${rowIndex}-${cellIndex}`}>{cellIndex === 0 && feature === "sales" && <i className="aa-fd-file">↗</i>}{cell}</span>)}
+      </div>)}
+    </div>
+  </section>;
   return <div className={`aa-feature-dashboard aa-feature-dashboard-${feature}`} dir={language === "ar" ? "rtl" : "ltr"}>
     <div className="aa-fd-heading">
       <div><span>{content.subtitle}</span><h3>{content.title}</h3></div>
@@ -438,20 +452,52 @@ function FeatureDashboard({ feature, language }) {
     <div className="aa-fd-metrics">{content.metrics.map(([label, value, note], index) => <div className="aa-fd-metric" key={label}>
       <span>{label}</span><b>{value}</b><small className={index === 0 ? "is-positive" : ""}>{index === 0 && feature === "sales" && <i>↗</i>}{note}</small>
     </div>)}</div>
-    <div className="aa-fd-panels">
-      <section className="aa-fd-panel aa-fd-chart-panel">
-        <div className="aa-fd-panel-heading"><b>{feature === "sales" ? content.chart : content.chart}</b><span>{feature === "sales" ? "DH" : "100 %"}</span></div>
-        {content.labels ? <div className="aa-fd-bar-chart" aria-label={content.chart}>{bars.map((height, index) => <span key={index}><i style={{ height: `${height}%` }} /><small>{content.labels[index]}</small></span>)}</div> : <div className="aa-fd-categories">{content.categories.map(([name, percent]) => <div className="aa-fd-category" key={name}><span>{name}</span><b>{percent}%</b><i><em style={{ width: `${percent}%` }} /></i></div>)}</div>}
-      </section>
-      <section className="aa-fd-panel aa-fd-table-panel">
-        <div className="aa-fd-panel-heading"><b>{content.table}</b><span>•••</span></div>
-        <div className="aa-fd-table" role="table" aria-label={content.table}>
-          <div className="aa-fd-row aa-fd-table-head" role="row">{content.columns.map((column) => <span role="columnheader" key={column}>{column}</span>)}</div>
-          {content.rows.map((row, rowIndex) => <div className="aa-fd-row" role="row" key={row[0]}>
-            {row.map((cell, cellIndex) => <span role="cell" className={cellIndex === row.length - 1 ? (feature === "stock" ? "is-low-stock" : "is-status") : ""} key={`${rowIndex}-${cellIndex}`}>{cellIndex === 0 && ["sales", "deliveries"].includes(feature) && <i className="aa-fd-file">↗</i>}{cell}</span>)}
-          </div>)}
-        </div>
-      </section>
+    <div className={`aa-fd-panels aa-fd-panels-${feature}`}>
+      {feature === "sales" && <>
+        <section className="aa-fd-panel aa-fd-chart-panel aa-fd-sales-chart">
+          <div className="aa-fd-panel-heading"><b>{content.chart}</b><span>DH</span></div>
+          <div className="aa-fd-bar-chart" aria-label={content.chart}>{bars.map((height, index) => <span key={index}><i style={{ height: `${height}%` }} /><small>{content.labels[index]}</small></span>)}</div>
+        </section>
+        {activityTable}
+      </>}
+      {feature === "stock" && <>
+        <section className="aa-fd-panel aa-fd-stock-panel">
+          <div className="aa-fd-panel-heading"><b>{content.chart}</b><span>{content.subtitle.split(" · ")[1]}</span></div>
+          <div className="aa-fd-stock-overview">
+            <div className="aa-fd-stock-ring"><div><b>{content.metrics[0][1]}</b><small>{language === "ar" ? "مرجع" : language === "en" ? "items" : "références"}</small></div></div>
+            <div className="aa-fd-stock-legend">{content.categories.map(([name, percent], index) => <div className="aa-fd-stock-family" key={name}><i className={`is-family-${index}`} /><span>{name}</span><b>{percent}%</b></div>)}</div>
+          </div>
+        </section>
+        {activityTable}
+      </>}
+      {feature === "purchases" && <>
+        <section className="aa-fd-panel aa-fd-procurement-panel">
+          <div className="aa-fd-panel-heading"><b>{content.chart}</b><span>{content.subtitle.split(" · ")[1]}</span></div>
+          <div className="aa-fd-procurement-intro"><i>⇄</i><span>{language === "ar" ? "تقدم التوريد" : language === "en" ? "Procurement progress" : "Avancement des achats"}</span></div>
+          <div className="aa-fd-purchase-flow">{content.categories.map(([name, percent], index) => <div className={`aa-fd-purchase-stage is-stage-${index}`} key={name}>
+            <span className="aa-fd-purchase-stage-icon">{["01", "02", "03"][index]}</span><b>{name}</b><div><i style={{ width: `${percent}%` }} /></div><small>{percent}%</small>
+          </div>)}</div>
+          <div className="aa-fd-procurement-foot"><span><i />{content.metrics[1][0]}</span><b>{content.metrics[1][1]}</b></div>
+        </section>
+        {activityTable}
+      </>}
+      {feature === "deliveries" && <>
+        <section className="aa-fd-panel aa-fd-delivery-route">
+          <div className="aa-fd-panel-heading"><b>{content.chart}</b><span>{content.subtitle.split(" · ")[1]}</span></div>
+          <div className="aa-fd-route-top"><i>⇢</i><span>{language === "ar" ? "مسار سندات التسليم" : language === "en" ? "Delivery workflow" : "Parcours des livraisons"}</span></div>
+          <div className="aa-fd-delivery-stages">{deliveryStages.map((stage, index) => <div className={`aa-fd-delivery-stage is-${stage.state}`} key={stage.label}>
+            <span className="aa-fd-delivery-step"><i>{stage.state === "done" ? "✓" : String(index + 1).padStart(2, "0")}</i>{index < deliveryStages.length - 1 && <b />}</span>
+            <span className="aa-fd-delivery-copy"><strong>{stage.label}</strong><small>{stage.detail}</small></span><em>{stage.value}</em>
+          </div>)}</div>
+        </section>
+        <section className="aa-fd-panel aa-fd-delivery-list">
+          <div className="aa-fd-panel-heading"><b>{content.table}</b><span>{content.metrics[0][1]}</span></div>
+          {content.rows.map((row, index) => <article className="aa-fd-delivery-item" key={row[0]}>
+            <span className={`aa-fd-delivery-icon is-delivery-${index}`}>↗</span><div><b>{row[1]}</b><small>{row[0]} · {row[2]}</small></div><em>{row[3]}</em>
+          </article>)}
+          <div className="aa-fd-delivery-footer"><span><i />{content.metrics[3][0]}</span><b>{content.metrics[3][1]}</b></div>
+        </section>
+      </>}
     </div>
     <div className="aa-fd-sample"><i />{localized.sample}</div>
   </div>;

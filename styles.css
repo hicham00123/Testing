@@ -1765,3 +1765,85 @@ a.button:active,button.button:active { transform: translateY(0) scale(.985); }
   .aa-menu-toggle { width:38px; height:39px; }
   .aa-mobile-quote { min-height:37px; padding-inline:8px; font-size:8px; }
 }
+
+/* Give each feature dashboard its own visual language and data pattern */
+.aa-feature-dashboard-stock { background:radial-gradient(ellipse at 13% 100%,#14a37a12,transparent 45%),#f4f7f6; }
+.aa-feature-dashboard-purchases { background:radial-gradient(ellipse at 88% 5%,#4c87c012,transparent 42%),#f4f7fa; }
+.aa-feature-dashboard-deliveries { background:radial-gradient(ellipse at 86% 8%,#18a78312,transparent 42%),#f3f8f6; }
+.aa-fd-panels-stock { grid-template-columns:minmax(0,.98fr) minmax(0,1.14fr); }
+.aa-fd-stock-overview { display:grid; grid-template-columns:86px minmax(0,1fr); align-items:center; gap:10px; margin-top:11px; }
+.aa-fd-stock-ring { position:relative; display:grid; width:82px; aspect-ratio:1; place-items:center; border-radius:50%; background:conic-gradient(from -35deg,#16a47a 0 72%,#b5e3d5 72% 88%,#e9f1ee 88% 100%); box-shadow:0 5px 15px #1a9d7617; }
+.aa-fd-stock-ring::before { position:absolute; inset:8px; border-radius:50%; background:#fff; content:""; }
+.aa-fd-stock-ring>div { position:relative; z-index:1; display:grid; gap:2px; text-align:center; }
+.aa-fd-stock-ring b { color:#30453f; font-size:14px; line-height:1; }
+.aa-fd-stock-ring small { color:#87928e; font-size:6px; }
+.aa-fd-stock-legend { display:grid; gap:8px; }
+.aa-fd-stock-family { display:grid; min-width:0; grid-template-columns:6px minmax(0,1fr) auto; align-items:center; gap:5px; }
+.aa-fd-stock-family>i { width:6px; height:6px; border-radius:2px; background:#16a47a; }
+.aa-fd-stock-family>i.is-family-1 { background:#50b798; }.aa-fd-stock-family>i.is-family-2 { background:#91d0bc; }.aa-fd-stock-family>i.is-family-3 { background:#b8e2d4; }
+.aa-fd-stock-family>span { overflow:hidden; color:#68746f; font-size:6px; text-overflow:ellipsis; white-space:nowrap; }
+.aa-fd-stock-family>b { color:#3e6255; font-size:6px; }
+.aa-fd-table-panel-stock { border-top:2px solid #41ad8a; }
+.aa-fd-table-panel-stock .aa-fd-row>span:first-child { color:#168563; }
+.aa-fd-panels-purchases { grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); }
+.aa-fd-procurement-panel { display:flex; flex-direction:column; border-top:2px solid #588fc6; background:linear-gradient(145deg,#fff,#f8fbff); }
+.aa-fd-procurement-intro { display:flex; align-items:center; gap:7px; margin-top:14px; color:#75889a; font-size:7px; font-weight:700; }
+.aa-fd-procurement-intro>i { display:grid; width:22px; height:22px; place-items:center; border-radius:7px; color:#3777b2; background:#eaf3fc; font-size:13px; font-style:normal; }
+.aa-fd-purchase-flow { position:relative; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:15px; }
+.aa-fd-purchase-stage { position:relative; display:grid; min-width:0; justify-items:start; gap:6px; padding:9px 8px; border:1px solid #e8eef3; border-radius:8px; background:#fff; }
+.aa-fd-purchase-stage-icon { display:grid; width:21px; height:21px; place-items:center; border-radius:6px; color:#457fb4; background:#eaf3fc; font-size:6px; font-weight:850; }
+.aa-fd-purchase-stage>b { overflow:hidden; max-width:100%; color:#50606d; font-size:6px; text-overflow:ellipsis; white-space:nowrap; }
+.aa-fd-purchase-stage>div { width:100%; height:4px; overflow:hidden; border-radius:5px; background:#edf1f4; }
+.aa-fd-purchase-stage>div>i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#86b5df,#4385be); }
+.aa-fd-purchase-stage>small { color:#8092a2; font-size:6px; }
+.aa-fd-purchase-stage.is-stage-1 .aa-fd-purchase-stage-icon { color:#187c6e; background:#e5f5f0; }
+.aa-fd-purchase-stage.is-stage-1>div>i { background:linear-gradient(90deg,#81d1bd,#22a184); }
+.aa-fd-purchase-stage.is-stage-2 .aa-fd-purchase-stage-icon { color:#b27d2e; background:#fff5df; }
+.aa-fd-purchase-stage.is-stage-2>div>i { background:linear-gradient(90deg,#f5d38b,#e8a93e); }
+.aa-fd-procurement-foot { display:flex; min-height:27px; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:8px; color:#7c8993; font-size:6px; }
+.aa-fd-procurement-foot>span { display:flex; align-items:center; gap:5px; }.aa-fd-procurement-foot>span>i { width:5px; height:5px; border-radius:50%; background:#e8a93e; }
+.aa-fd-procurement-foot>b { color:#3e566b; font-size:8px; }
+.aa-fd-table-panel-purchases { border-top:2px solid #83acd0; }
+.aa-fd-table-panel-purchases .aa-fd-row>span:first-child { color:#397db7; }
+.aa-fd-panels-deliveries { grid-template-columns:minmax(0,.95fr) minmax(0,1.12fr); }
+.aa-fd-delivery-route { border-top:2px solid #31a98a; background:linear-gradient(145deg,#fff,#f5fbf8); }
+.aa-fd-route-top { display:flex; align-items:center; gap:7px; margin-top:13px; color:#63847a; font-size:7px; font-weight:750; }
+.aa-fd-route-top>i { display:grid; width:23px; height:23px; place-items:center; border-radius:7px; color:#128467; background:#e4f5ef; font-size:13px; font-style:normal; }
+.aa-fd-delivery-stages { display:grid; gap:11px; margin-top:13px; }
+.aa-fd-delivery-stage { position:relative; display:grid; min-width:0; grid-template-columns:23px minmax(0,1fr) auto; align-items:center; gap:8px; }
+.aa-fd-delivery-step { position:relative; display:grid; width:23px; aspect-ratio:1; place-items:center; border:1px solid #d9e7e1; border-radius:50%; color:#73857e; background:#fff; }
+.aa-fd-delivery-step>i { display:grid; width:15px; aspect-ratio:1; place-items:center; border-radius:50%; font-size:6px; font-style:normal; font-weight:800; }
+.aa-fd-delivery-step>b { position:absolute; top:21px; left:10px; width:1px; height:20px; background:#dcebe5; }
+.aa-fd-delivery-stage.is-active .aa-fd-delivery-step { border-color:#81cbb4; color:#118367; box-shadow:0 0 0 3px #22a58112; }
+.aa-fd-delivery-stage.is-active .aa-fd-delivery-step>i,.aa-fd-delivery-stage.is-done .aa-fd-delivery-step>i { color:#fff; background:#22a581; }
+.aa-fd-delivery-stage.is-done .aa-fd-delivery-step { border-color:#22a581; }
+.aa-fd-delivery-copy { display:grid; min-width:0; gap:2px; }
+.aa-fd-delivery-copy>strong { overflow:hidden; color:#465b53; font-size:7px; text-overflow:ellipsis; white-space:nowrap; }
+.aa-fd-delivery-copy>small { overflow:hidden; color:#9aa49f; font-size:6px; text-overflow:ellipsis; white-space:nowrap; }
+.aa-fd-delivery-stage>em { padding:4px 6px; border-radius:99px; color:#53736a; background:#eaf5f1; font-size:6px; font-style:normal; font-weight:800; }
+.aa-fd-delivery-stage.is-pending>em { color:#a17b3f; background:#fff5df; }
+.aa-fd-delivery-list { display:flex; flex-direction:column; border-top:2px solid #8ac8b6; }
+.aa-fd-delivery-item { display:grid; min-width:0; grid-template-columns:22px minmax(0,1fr) auto; align-items:center; gap:7px; min-height:39px; border-bottom:1px solid #eef2f0; }
+.aa-fd-delivery-icon { display:grid; width:21px; aspect-ratio:1; place-items:center; border-radius:6px; color:#148668; background:#e7f6f0; font-size:9px; font-style:normal; }
+.aa-fd-delivery-icon.is-delivery-1 { color:#568fbc; background:#edf5fb; }.aa-fd-delivery-icon.is-delivery-2 { color:#ba8a3b; background:#fff5df; }
+.aa-fd-delivery-item>div { display:grid; min-width:0; gap:3px; }
+.aa-fd-delivery-item>div>b { overflow:hidden; color:#4b5c56; font-size:7px; text-overflow:ellipsis; white-space:nowrap; }
+.aa-fd-delivery-item>div>small { overflow:hidden; color:#9aa39f; font-size:6px; text-overflow:ellipsis; white-space:nowrap; }
+.aa-fd-delivery-item>em { max-width:68px; overflow:hidden; padding:4px 6px; border-radius:99px; color:#168164; background:#e6f6ef; font-size:5px; font-style:normal; text-overflow:ellipsis; white-space:nowrap; }
+.aa-fd-delivery-footer { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; padding-top:8px; color:#788b84; font-size:6px; }
+.aa-fd-delivery-footer>span { display:flex; align-items:center; gap:5px; }.aa-fd-delivery-footer>span>i { width:5px; height:5px; border-radius:50%; background:#eca947; }
+.aa-fd-delivery-footer>b { color:#46645a; font-size:8px; }
+@media (max-width:900px) {
+  .aa-fd-stock-overview { grid-template-columns:68px minmax(0,1fr); gap:7px; }
+  .aa-fd-stock-ring { width:66px; }
+  .aa-fd-stock-ring::before { inset:7px; }
+  .aa-fd-purchase-flow { gap:5px; }
+  .aa-fd-purchase-stage { padding:7px 6px; }
+  .aa-fd-delivery-stage { gap:6px; }
+}
+@media (max-width:700px) {
+  .aa-walkthrough-screen .aa-feature-dashboard { min-height:0; }
+  .aa-walkthrough-screen .aa-fd-panels,.aa-fd-panels-stock,.aa-fd-panels-purchases,.aa-fd-panels-deliveries { grid-template-columns:1fr; }
+  .aa-walkthrough-screen .aa-fd-stock-overview { grid-template-columns:78px minmax(0,1fr); }
+  .aa-walkthrough-screen .aa-fd-stock-ring { width:74px; }
+}

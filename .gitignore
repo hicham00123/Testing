@@ -1,8 +1,6 @@
 node_modules/
 dist/
+private-reference-screenshots/
+*.zip
 .DS_Store
 Thumbs.db
-.env
-.env.*
-!.env.example
-*.log

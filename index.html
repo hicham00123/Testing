@@ -3,37 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fffaf7">
-  <meta name="description" content="Infocom est un logiciel SaaS pour piloter produits, tarifs, ventes, achats et stocks, y compris les stocks de produits médicaux.">
-  <title>Infocom — Logiciel SaaS de gestion d’entreprise</title>
-  <script>
-    try {
-      const savedLanguage = localStorage.getItem("infocom-language");
-      const savedTheme = localStorage.getItem("infocom-theme");
-      if (["fr", "en", "ar"].includes(savedLanguage)) {
-        document.documentElement.lang = savedLanguage;
-        document.documentElement.dir = savedLanguage === "ar" ? "rtl" : "ltr";
-      }
-      if (["light", "dark"].includes(savedTheme)) document.documentElement.dataset.theme = savedTheme;
-    } catch {}
-  </script>
-  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
-  <script>
-(() => {
-  const navigation = performance.getEntriesByType("navigation")[0];
-  let previousPath = "";
-  try {
-    previousPath = sessionStorage.getItem("infocom-internal-navigation") || "";
-    sessionStorage.removeItem("infocom-internal-navigation");
-  } catch {}
-  const internalNavigation = previousPath === location.pathname;
-  const isRefresh = navigation?.type === "reload";
-  const isHistoryNavigation = navigation?.type === "back_forward";
-  if (isRefresh || (!isHistoryNavigation && !internalNavigation)) {
-    document.documentElement.classList.add("intro-pending");
-  }
-})();
-</script>
+  <meta name="theme-color" content="#f45116">
+  <meta name="description" content="InfoCom.ma aide les entreprises marocaines à organiser leurs ventes, produits, stock et opérations commerciales.">
+  <title>InfoCom.ma — Gestion commerciale, stock et caisse</title>
+  <link rel="icon" href="/assets/images/infocom-globe.png" type="image/png">
+  <script>try { if (sessionStorage.getItem("infocom-skip-intro") !== "1") document.documentElement.classList.add("intro-pending"); } catch { document.documentElement.classList.add("intro-pending"); }</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
